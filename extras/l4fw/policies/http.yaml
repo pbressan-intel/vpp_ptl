@@ -1,0 +1,28 @@
+---
+table_name: http
+
+sf: filter
+
+objects:
+  app_id_prefix: HTTP
+  app_id1: $app_id_prefix app1
+  app_id2: $app_id_prefix app2
+
+rules:
+
+  - action:
+      action_name: allow
+    rule_name: allow app1
+    matches:
+      - key: app_id
+        operators: [equals]
+        values: [$app_id1]
+
+  - action:
+      action_name: allow
+    rule_name: allow app2
+    matches:
+      - key: app_id
+        operators: [equals]
+        values: [$app_id2]
+...

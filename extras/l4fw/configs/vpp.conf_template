@@ -1,0 +1,16 @@
+unix {
+  interactive
+  cli-listen /run/vpp/cli.sock
+  gid 1002
+  log ./extras/l4fw/vpp.log
+@VPP_NETNS_SETUP@
+}
+
+cpu {
+  main-core 0
+  corelist-workers 1-9
+}
+
+dpdk {
+  no-pci
+}

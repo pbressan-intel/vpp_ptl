@@ -1,0 +1,21 @@
+[package]
+name = "yaml_rust"
+version = "0.1.0"
+edition = "2021"
+authors = [
+    "Pietro Bressana <pietro.bressana@intel.com>",
+]
+
+[dependencies]
+clap = { version = "4.5.4", features = ["derive"] }
+strum = "0.26.2"
+strum_macros = "0.26.2"
+serde = { version = "1.0.198", features = ["derive"] }
+serde_yaml = "0.9.34"
+filename = "0.1.1"
+which = "6.0.1"
+cidr = "0.2.2"
+
+[features]
+default = []
+debug = []

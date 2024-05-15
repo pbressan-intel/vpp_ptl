@@ -1,0 +1,26 @@
+create host-interface name veth1vpp
+create host-interface name veth2vpp
+
+set interface mac address host-veth1vpp 02:DD:00:00:01:01
+set interface mac address host-veth2vpp 02:DD:00:00:02:01
+
+set int state host-veth1vpp up
+set int state host-veth2vpp up
+
+set int ip address host-veth1vpp 10.10.1.1/24
+set int ip address host-veth2vpp 10.10.2.1/24
+
+# Add both interfaces to bridge domain 1
+set int l2 bridge host-veth1vpp 1
+set int l2 bridge host-veth2vpp 1
+
+set acl-plugin acl permit+reflect src 10.10.1.0/24
+set acl-plugin acl permit+reflect src 10.10.2.0/24
+#set acl-plugin acl permit+reflect src 10.10.1.0/24 proto 6
+#set acl-plugin acl permit+reflect src 10.10.2.0/24 proto 6
+
+#set acl-plugin interface host-veth1vpp input acl 0
+#set acl-plugin interface host-veth2vpp input acl 1
+
+l4fw host-veth1vpp
+l4fw host-veth2vpp

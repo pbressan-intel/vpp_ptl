@@ -1,0 +1,42 @@
+---
+table_name: main
+
+hook_point: net-in
+
+sf: filter
+
+default_action:
+  action_name: drop
+
+objects:
+  lan_subnet: 192.168.1.0/24
+  wan_subnet: 10.10.1.0/24
+  app_id_prefix: HTTP
+
+rules:
+
+  - action:
+      action_name: allow
+    rule_name: allow established
+    matches:
+      - key: conntrack_state
+        values: [established]
+
+  - action:
+      action_name: jump
+      data: http
+    rule_name: jump to http if app_id starts with string HTTP
+    matches:
+      - key: app_id
+        operators: [starts_with]
+        values: [$app_id_prefix]
+
+  - action:
+      action_name: allow
+    rule_name: allow outbound traffic
+    matches:
+      - key: ip_saddr
+        values: [$lan_subnet]
+      - key: ip_daddr
+        values: [$wan_subnet]
+...
