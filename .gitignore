@@ -118,5 +118,3 @@ compile_commands.json
 
 # debian packaging
 .pc
-
-nw_interfaces.yaml
